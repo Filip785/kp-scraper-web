@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Button, InputNumber } from 'antd';
+import { Form, Button, InputNumber, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { attemptSubmit, selectDownload, selectIsFetching } from './scraperSlice';
+import { attemptSubmit, selectIsFetching, selectItems } from './scraperSlice';
 
 interface Props {
   categoryName: string;
@@ -11,8 +11,8 @@ interface Props {
 export default function CategoryForm(props: Props) {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const download = useSelector(selectDownload);
   const isFetching = useSelector(selectIsFetching);
+  const items = useSelector(selectItems);
 
   return (
     <div className="category-form">
@@ -22,6 +22,7 @@ export default function CategoryForm(props: Props) {
         onFinish={() => dispatch(attemptSubmit(form.getFieldValue('num-pages'), form.getFieldValue('min-price'), form.getFieldValue('max-price'), props.catId))}
         form={form}
       >
+        <h3 className="info-msg">Nemoj broj stranica preko 20 da staviš :)</h3>
         <Form.Item
           label="Maksimalan broj strana koje želite da pokrijete"
           name="num-pages"
@@ -74,7 +75,34 @@ export default function CategoryForm(props: Props) {
         </Form.Item>
       </Form>
 
-      {download !== '' && <a href={download}>Excel file spreman. Pritisni ovde</a>}
+      <Table columns={[
+        {
+          title: 'Ime fajla',
+          dataIndex: 'fileName',
+          key: 'fileName'
+        },
+        {
+          title: 'Datum kreiranja',
+          dataIndex: 'dateCreated',
+          key: 'dateCreated'
+        },
+        {
+          title: 'Vreme Kreiranja',
+          dataIndex: 'timeCreated',
+          key: 'timeCreated'
+        },
+        {
+          title: 'Veličina fajla',
+          dataIndex: 'fileSize',
+          key: 'fileSize'
+        },
+        {
+          title: 'Link za preuzimanje',
+          dataIndex: 'downloadUrl',
+          key: 'downloadUrl',
+          render: link => <a href={link}>Klikni ovde</a>
+        },
+      ]} dataSource={items} rowKey="fileName" pagination={false} />
     </div>
   );
 }
