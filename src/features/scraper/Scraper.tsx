@@ -8,10 +8,11 @@ export default function Scraper() {
   return (
     <Tabs defaultActiveKey="1">
       <TabPane tab="Grafičke Kartice" key="1">
-        <CategoryForm categoryName="Grafičke Kartice" />
+        <CategoryForm categoryName="Grafičke Kartice" catId="gpu" />
       </TabPane>
       <TabPane tab="Procesori" key="2">
-      <CategoryForm categoryName="Procesori" />
+        <h1>Sutra :)</h1>
+      {/* <CategoryForm categoryName="Procesori" catId="cpu" /> */}
       </TabPane>
     </Tabs>
   );
