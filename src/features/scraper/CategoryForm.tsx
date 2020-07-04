@@ -1,25 +1,41 @@
 import React from 'react';
-import { Form, Button, InputNumber, Table } from 'antd';
+import { Form, Button, InputNumber, Table, Tooltip, Select } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { attemptSubmit, selectIsFetching, selectItems } from './scraperSlice';
+import { attemptSubmit, selectIsFetching, clearItems, ProductTypes, ScraperState } from './scraperSlice';
 
 interface Props {
   categoryName: string;
-  catId: string;
+  partType: ProductTypes;
 }
 
 export default function CategoryForm(props: Props) {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const isFetching = useSelector(selectIsFetching);
-  const items = useSelector(selectItems);
+
+  const items = useSelector(({ scraper }: { scraper: ScraperState }) => {
+    if (props.partType === ProductTypes.gpu) {
+      return scraper.gpuItems;
+    }
+
+    if (props.partType === ProductTypes.cpu) {
+      return scraper.cpuItems;
+    }
+
+    if (props.partType === ProductTypes.ssd) {
+      return scraper.ssdItems;
+    }
+
+    return [];
+  });
 
   return (
     <div className="category-form">
       <h1>{props.categoryName}</h1>
       <Form
         name="submit-form"
-        onFinish={() => dispatch(attemptSubmit(form.getFieldValue('num-pages'), form.getFieldValue('min-price'), form.getFieldValue('max-price'), props.catId))}
+        onFinish={() => dispatch(attemptSubmit(form.getFieldValue('num-pages'), form.getFieldValue('min-price'), form.getFieldValue('max-price'), form.getFieldValue('search-term'), props.partType))}
         form={form}
       >
         <h3 className="info-msg">Nemoj broj stranica preko 20 da staviš :)</h3>
@@ -33,7 +49,7 @@ export default function CategoryForm(props: Props) {
             },
           ]}
         >
-          <InputNumber style={{width: '250px'}} />
+          <InputNumber style={{ width: '250px' }} />
         </Form.Item>
 
         <Form.Item
@@ -45,9 +61,8 @@ export default function CategoryForm(props: Props) {
               message: 'Unesite minimalnu cenu',
             },
           ]}
-          
         >
-          <InputNumber style={{width: '250px'}} />
+          <InputNumber style={{ width: '250px' }} />
         </Form.Item>
 
         <Form.Item
@@ -59,16 +74,42 @@ export default function CategoryForm(props: Props) {
               message: 'Unesite maksimalnu cenu',
             },
           ]}
-          
         >
-          <InputNumber style={{width: '250px'}} />
+          <InputNumber style={{ width: '250px' }} />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 17 }} className="last-row">
-          <div style={{ display: 'flex' }}>
+        <Form.Item
+          label={
+            <span>
+              Termini za pretragu &nbsp;
+              <Tooltip title="Moguće je dodati više termina, na primer ako tražite RX 580 i RX 590 unesite prvo 580 i pritisnite 'Enter' pa unesite 590 i pritisnite 'Enter'">
+                <QuestionCircleOutlined />
+              </Tooltip>
+            </span>
+          }
+          name="search-term"
+          rules={[
+            {
+              required: true,
+              message: 'Unesite termine za pretragu',
+            },
+          ]}
+        >
+          <Select mode="tags" style={{ width: '250px' }} placeholder="Unesite jedan ili više termina"></Select>
+        </Form.Item>
+
+        <Form.Item className="last-row">
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
-              <Button type="primary" htmlType="submit" loading={isFetching} style={{ width: '100%' }}>
-                Send
+              <Tooltip title="Briše sve podatke iz tabele ispod">
+                <Button type="primary" danger htmlType="button" onClick={() => dispatch(clearItems(props.partType))}>
+                  Obriši podatke
+                </Button>
+              </Tooltip>
+            </div>
+            <div>
+              <Button type="primary" htmlType="submit" loading={isFetching}>
+                Pošalji upit
               </Button>
             </div>
           </div>

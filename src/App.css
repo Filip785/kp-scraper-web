@@ -26,13 +26,13 @@
   width: 50%;
 }
 
-#submit-form .ant-row {
+#submit-form .ant-row:not(.last-row) {
   display: flex;
   justify-content: space-between;
 }
 
-#submit-form .last-row {
-  justify-content: flex-end !important;
+#submit-form .last-row { 
+  display: block;
 }
 
 #submit-form .ant-form-item-control {
