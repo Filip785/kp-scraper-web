@@ -7,6 +7,7 @@ import { attemptSubmit, selectIsFetching, clearItems, ProductTypes, ScraperState
 interface Props {
   categoryName: string;
   partType: ProductTypes;
+  searchTermDesc: string;
 }
 
 export default function CategoryForm(props: Props) {
@@ -82,7 +83,7 @@ export default function CategoryForm(props: Props) {
           label={
             <span>
               Termini za pretragu &nbsp;
-              <Tooltip title="Moguće je dodati više termina, na primer ako tražite RX 580 i RX 590 unesite prvo 580 i pritisnite 'Enter' pa unesite 590 i pritisnite 'Enter'">
+              <Tooltip title={props.searchTermDesc}>
                 <QuestionCircleOutlined />
               </Tooltip>
             </span>

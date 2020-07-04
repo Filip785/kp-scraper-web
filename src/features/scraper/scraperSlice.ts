@@ -45,8 +45,18 @@ export const scraperSlice = createSlice({
     setIsFetching(state) {
       state.isFetching = !state.isFetching;
     },
-    setItems(state, action: PayloadAction<ScrapedItem[]>) {
-      state.gpuItems = action.payload;
+    setItems(state, action: PayloadAction<{partType: ProductTypes, items: ScrapedItem[]}>) {
+      switch(action.payload.partType) {
+        case ProductTypes.gpu:
+          state.gpuItems = action.payload.items;
+          break;
+        case ProductTypes.cpu:
+          state.cpuItems = action.payload.items;
+          break;
+        case ProductTypes.ssd:
+          state.ssdItems = action.payload.items;
+          break;
+      }
     },
     clearItemsReduce(state, action: PayloadAction<ProductTypes>) {
       switch(action.payload) {
@@ -75,10 +85,10 @@ export const attemptSubmit = (numOfPages: number, minPrice: number, maxPrice: nu
     const response = await axios.get(`${process.env.REACT_APP_API_URL}api/scraper/get-part-data`, { params:{ partType, numOfPages, minPrice, maxPrice, searchTerms } });
     
     // redo
-    const currentItems: ScrapedItem[] = JSON.parse(localStorage.getItem(`${partType}Items`)!) || [];
-    currentItems.push(response.data);
-    localStorage.setItem(`${partType}Items`, JSON.stringify(currentItems));
-    dispatch(setItems(currentItems));
+    const items: ScrapedItem[] = JSON.parse(localStorage.getItem(`${partType}Items`)!) || [];
+    items.push(response.data);
+    localStorage.setItem(`${partType}Items`, JSON.stringify(items));
+    dispatch(setItems({ partType, items }));
 
     dispatch(setIsFetching());
   } catch (err) {
