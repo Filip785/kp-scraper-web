@@ -10,6 +10,7 @@ export enum ProductTypes {
 
 export interface ScrapedItem {
   fileName: string;
+  adCount: number;
   dateCreated: string;
   timeCreated: string;
   fileSize: string;

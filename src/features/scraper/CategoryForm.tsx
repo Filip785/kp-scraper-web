@@ -132,6 +132,19 @@ export default function CategoryForm(props: Props) {
           }
         },
         {
+          title: 'Pronađeno oglasa',
+          dataIndex: 'adCount',
+          key: 'adCount',
+          render(children) {
+            return {
+              children,
+              props: {
+                'data-desc': 'Pronađeno oglasa'
+              }
+            };
+          }
+        },
+        {
           title: 'Datum kreiranja',
           dataIndex: 'dateCreated',
           key: 'dateCreated',
