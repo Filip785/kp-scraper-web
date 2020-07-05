@@ -30,7 +30,7 @@ export default function CategoryForm(props: Props) {
 
     return [];
   });
-
+  
   return (
     <div className="category-form">
       <h1>{props.categoryName}</h1>
@@ -50,7 +50,7 @@ export default function CategoryForm(props: Props) {
             },
           ]}
         >
-          <InputNumber style={{ width: '250px' }} />
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
@@ -63,7 +63,7 @@ export default function CategoryForm(props: Props) {
             },
           ]}
         >
-          <InputNumber style={{ width: '250px' }} />
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
@@ -76,7 +76,7 @@ export default function CategoryForm(props: Props) {
             },
           ]}
         >
-          <InputNumber style={{ width: '250px' }} />
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
@@ -96,11 +96,11 @@ export default function CategoryForm(props: Props) {
             },
           ]}
         >
-          <Select mode="tags" style={{ width: '250px' }} placeholder="Unesite jedan ili više termina"></Select>
+          <Select mode="tags" placeholder="Unesite jedan ili više termina"></Select>
         </Form.Item>
 
         <Form.Item className="last-row">
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className="btn-wrapper">
             <div>
               <Tooltip title="Briše sve podatke iz tabele ispod">
                 <Button type="primary" danger htmlType="button" onClick={() => dispatch(clearItems(props.partType))}>
@@ -108,7 +108,7 @@ export default function CategoryForm(props: Props) {
                 </Button>
               </Tooltip>
             </div>
-            <div>
+            <div className="submit-btn-wrapper">
               <Button type="primary" htmlType="submit" loading={isFetching}>
                 Pošalji upit
               </Button>
@@ -119,30 +119,69 @@ export default function CategoryForm(props: Props) {
 
       <Table columns={[
         {
-          title: 'Ime fajla',
+          title: 'Ime Fajla',
           dataIndex: 'fileName',
-          key: 'fileName'
+          key: 'fileName',
+          render(children) {
+            return {
+              children,
+              props: {
+                'data-desc': 'Ime Fajla'
+              }
+            };
+          }
         },
         {
           title: 'Datum kreiranja',
           dataIndex: 'dateCreated',
-          key: 'dateCreated'
+          key: 'dateCreated',
+          render(children) {
+            return {
+              children,
+              props: {
+                'data-desc': 'Datum Kreiranja'
+              }
+            };
+          }
         },
         {
           title: 'Vreme Kreiranja',
           dataIndex: 'timeCreated',
-          key: 'timeCreated'
+          key: 'timeCreated',
+          render(children) {
+            return {
+              children,
+              props: {
+                'data-desc': 'Vreme Kreiranja'
+              }
+            };
+          }
         },
         {
           title: 'Veličina fajla',
           dataIndex: 'fileSize',
-          key: 'fileSize'
+          key: 'fileSize',
+          render(children) {
+            return {
+              children,
+              props: {
+                'data-desc': 'Veličina fajla'
+              }
+            };
+          }
         },
         {
           title: 'Link za preuzimanje',
           dataIndex: 'downloadUrl',
           key: 'downloadUrl',
-          render: link => <a href={link}>Klikni ovde</a>
+          render(link) {
+            return {
+              children: <a href={link}>Klikni ovde</a>,
+              props: {
+                'data-desc': 'Link za preuzimanje'
+              }
+            };
+          }
         },
       ]} dataSource={items} rowKey="fileName" pagination={false} />
     </div>

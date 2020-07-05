@@ -1,10 +1,11 @@
-#root, .App, .App .ant-tabs {
+#root {
   height: 100%;
 }
 
 .App {
   display: flex;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .App .ant-tabs {
@@ -42,4 +43,108 @@
 .info-msg {
   text-decoration: underline;
   font-weight: bolder;
+}
+
+.ant-input-number, .ant-select-selector {
+  width: 250px;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 780px) and (max-width: 950px) {
+  .App .ant-tabs {
+    width: 750px;
+  }
+}
+
+@media screen and (min-width: 680px) and (max-width: 779px) {
+  .App .ant-tabs {
+    width: 650px;
+  }
+}
+
+@media screen and (min-width: 460px) and (max-width: 679px) {
+  .App .ant-tabs, .ant-table-wrapper {
+    width: 450px;
+  }
+
+  .ant-table-wrapper {
+    overflow-x: auto;
+  }
+}
+
+@media screen and (min-width: 360px) and (max-width: 459px) {
+  .App .ant-tabs, .ant-table-wrapper {
+    width: 350px;
+  }
+}
+
+@media screen and (min-width: 290px) and (max-width: 359px) {
+  .App .ant-tabs, .ant-table-wrapper {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 679px) {
+ .ant-tabs-nav {
+   margin: 0px auto 24px auto !important;
+ }
+}
+
+@media screen and (max-width: 679px) {
+  #submit-form .ant-row {
+    flex-direction: column;
+  }
+
+  .ant-form-item-label {
+    text-align: left;
+  }
+
+  #submit-form .ant-row .ant-form-item-control-input-content {
+    flex: 1;
+    width: 100%;
+  }
+
+  #submit-form .last-row .btn-wrapper {
+    margin-top: 16px;
+  }
+
+  #submit-form .last-row .btn-wrapper .submit-btn-wrapper {
+    margin-bottom: 24px;    
+  }
+
+  .ant-table-wrapper thead {
+    display: none;
+  }
+
+  .ant-table-wrapper table, .ant-table-wrapper tbody, .ant-table-wrapper tr, .ant-table-wrapper td {
+    display: block;
+    width: 100%;
+  }
+
+  .ant-table-wrapper tbody tr {
+    margin-bottom: 24px;
+    text-align: right;
+  }
+
+  .ant-table-wrapper tbody td::before {
+    content: attr(data-desc);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    text-align: left;
+    font-weight: bolder;
+  }
+
+  .ant-tabs-nav {
+    width: 100%;
+  }
+
+  .ant-input-number, .ant-select-selector {
+    width: 100%;
+  }
 }
