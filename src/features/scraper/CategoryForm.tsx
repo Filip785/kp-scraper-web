@@ -3,6 +3,7 @@ import { Form, Button, InputNumber, Table, Tooltip, Select } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { attemptSubmit, selectIsFetching, clearItems, ProductTypes, ScraperState } from './scraperSlice';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   categoryName: string;
@@ -14,6 +15,7 @@ export default function CategoryForm(props: Props) {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const isFetching = useSelector(selectIsFetching);
+  const { t } = useTranslation();
 
   const items = useSelector(({ scraper }: { scraper: ScraperState }) => {
     if (props.partType === ProductTypes.gpu) {
@@ -39,9 +41,9 @@ export default function CategoryForm(props: Props) {
         onFinish={() => dispatch(attemptSubmit(form.getFieldValue('num-pages'), form.getFieldValue('min-price'), form.getFieldValue('max-price'), form.getFieldValue('search-term'), props.partType))}
         form={form}
       >
-        <h3 className="info-msg">Nemoj broj stranica preko 20 da staviš :)</h3>
+        <h3 className="info-msg">{t('Nemoj broj stranica preko 20 da staviš')}</h3>
         <Form.Item
-          label="Maksimalan broj strana koje želite da pokrijete"
+          label={t("Maksimalan broj strana koje želite da pokrijete")}
           name="num-pages"
           rules={[
             {
@@ -54,7 +56,7 @@ export default function CategoryForm(props: Props) {
         </Form.Item>
 
         <Form.Item
-          label="Minimalna cena artikla (u evrima)"
+          label={t("Minimalna cena artikla (u evrima)")}
           name="min-price"
           rules={[
             {
@@ -67,7 +69,7 @@ export default function CategoryForm(props: Props) {
         </Form.Item>
 
         <Form.Item
-          label="Maksimalna cena artikla (u evrima)"
+          label={t("Maksimalna cena artikla (u evrima)")}
           name="max-price"
           rules={[
             {
@@ -82,7 +84,7 @@ export default function CategoryForm(props: Props) {
         <Form.Item
           label={
             <span>
-              Termini za pretragu &nbsp;
+              {t('Termini za pretragu')} &nbsp;
               <Tooltip title={props.searchTermDesc}>
                 <QuestionCircleOutlined />
               </Tooltip>
@@ -102,15 +104,15 @@ export default function CategoryForm(props: Props) {
         <Form.Item className="last-row">
           <div className="btn-wrapper">
             <div>
-              <Tooltip title="Briše sve podatke iz tabele ispod">
+              <Tooltip title={t("Briše sve podatke iz tabele ispod")}>
                 <Button type="primary" danger htmlType="button" onClick={() => dispatch(clearItems(props.partType))}>
-                  Obriši podatke
+                  {t('Obriši podatke')}
                 </Button>
               </Tooltip>
             </div>
             <div className="submit-btn-wrapper">
               <Button type="primary" htmlType="submit" loading={isFetching}>
-                Pošalji upit
+                {t('Pošalji upit')}
               </Button>
             </div>
           </div>
@@ -119,79 +121,79 @@ export default function CategoryForm(props: Props) {
 
       <Table columns={[
         {
-          title: 'Ime Fajla',
+          title: t('Ime fajla'),
           dataIndex: 'fileName',
           key: 'fileName',
           render(children) {
             return {
               children,
               props: {
-                'data-desc': 'Ime Fajla'
+                'data-desc': t('Ime fajla')
               }
             };
           }
         },
         {
-          title: 'Pronađeno oglasa',
+          title: t('Pronađeno oglasa'),
           dataIndex: 'adCount',
           key: 'adCount',
           render(children) {
             return {
               children,
               props: {
-                'data-desc': 'Pronađeno oglasa'
+                'data-desc': t('Pronađeno oglasa')
               }
             };
           }
         },
         {
-          title: 'Datum kreiranja',
+          title: t('Datum kreiranja'),
           dataIndex: 'dateCreated',
           key: 'dateCreated',
           render(children) {
             return {
               children,
               props: {
-                'data-desc': 'Datum Kreiranja'
+                'data-desc': t('Datum Kreiranja')
               }
             };
           }
         },
         {
-          title: 'Vreme Kreiranja',
+          title: t('Vreme kreiranja'),
           dataIndex: 'timeCreated',
           key: 'timeCreated',
           render(children) {
             return {
               children,
               props: {
-                'data-desc': 'Vreme Kreiranja'
+                'data-desc': t('Vreme kreiranja')
               }
             };
           }
         },
         {
-          title: 'Veličina fajla',
+          title: t('Veličina fajla'),
           dataIndex: 'fileSize',
           key: 'fileSize',
           render(children) {
             return {
               children,
               props: {
-                'data-desc': 'Veličina fajla'
+                'data-desc': t('Veličina fajla')
               }
             };
           }
         },
         {
-          title: 'Link za preuzimanje',
+          title: t('Link za preuzimanje'),
           dataIndex: 'downloadUrl',
           key: 'downloadUrl',
           render(link) {
             return {
-              children: <a href={link}>Klikni ovde</a>,
+              children: <a href={link}>{t('Klikni ovde')}</a>,
               props: {
-                'data-desc': 'Link za preuzimanje'
+                'data-desc': t('Link za preuzimanje')
               }
             };
           }

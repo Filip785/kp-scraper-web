@@ -2,20 +2,23 @@ import React from 'react';
 import { Tabs } from 'antd';
 import CategoryForm from './CategoryForm';
 import { ProductTypes } from './scraperSlice';
+import { useTranslation } from 'react-i18next';
 
 const { TabPane } = Tabs;
 
 export default function Scraper() {
+  const { t } = useTranslation();
+
   return (
     <Tabs defaultActiveKey="1">
-      <TabPane tab="Grafičke Kartice" key="1">
-        <CategoryForm categoryName="Grafičke Kartice" partType={ProductTypes.gpu} searchTermDesc="Moguće je dodati više termina, na primer ako tražite RX 580 i RX 590 unesite prvo 580 i pritisnite 'Enter' pa unesite 590 i pritisnite 'Enter'" />
+      <TabPane tab={t('Grafičke Kartice')} key="1">
+        <CategoryForm categoryName={t('Grafičke Kartice')} partType={ProductTypes.gpu} searchTermDesc={t('opisTerminaGPU')} />
       </TabPane>
-      <TabPane tab="Procesori" key="2">
-        <CategoryForm categoryName="Procesori" partType={ProductTypes.cpu} searchTermDesc="Moguće je dodati više termina, na primer ako tražite Ryzen 3600X i Ryzen 3700X unesite prvo 3600X i pritisnite 'Enter' pa unesite 3700X i pritisnite 'Enter'" />
+      <TabPane tab={t('Procesori')} key="2">
+        <CategoryForm categoryName={t('Procesori')} partType={ProductTypes.cpu} searchTermDesc={t('opisTerminaCPU')} />
       </TabPane>
       <TabPane tab="SSD" key="3">
-        <CategoryForm categoryName="SSD" partType={ProductTypes.ssd} searchTermDesc="Moguće je dodati više termina, na primer ako tražite Samsung 860 i Samsung 970 unesite prvo 860 i pritisnite 'Enter' pa unesite 970 i pritisnite 'Enter'" />
+        <CategoryForm categoryName="SSD" partType={ProductTypes.ssd} searchTermDesc={t('opisTerminaSSD')} />
       </TabPane>
     </Tabs>
   );

@@ -6,6 +6,22 @@
   display: flex;
   justify-content: center;
   overflow-y: auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App .lang-select {
+  width: 850px;
+  display: flex;
+  padding: 20px 0;
+}
+
+.App .lang-select .ant-select {
+  margin-left: 20px;
+}
+
+.lang-select-desc {
+  margin-left: 20px;
 }
 
 .App .ant-tabs {
