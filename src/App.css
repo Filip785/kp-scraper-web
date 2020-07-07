@@ -71,19 +71,19 @@
 }
 
 @media screen and (min-width: 780px) and (max-width: 950px) {
-  .App .ant-tabs {
+  .App .ant-tabs, .App .lang-select {
     width: 750px;
   }
 }
 
 @media screen and (min-width: 680px) and (max-width: 779px) {
-  .App .ant-tabs {
+  .App .ant-tabs, .App .lang-select {
     width: 650px;
   }
 }
 
 @media screen and (min-width: 460px) and (max-width: 679px) {
-  .App .ant-tabs, .ant-table-wrapper {
+  .App .ant-tabs, .ant-table-wrapper, .App .lang-select {
     width: 450px;
   }
 
@@ -92,8 +92,19 @@
   }
 }
 
+@media screen and (max-width: 459px) {
+  .App .lang-select {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .App .lang-select .ant-select {
+    margin-left: 0;
+  }
+}
+
 @media screen and (min-width: 360px) and (max-width: 459px) {
-  .App .ant-tabs, .ant-table-wrapper {
+  .App .ant-tabs, .ant-table-wrapper, .App .lang-select {
     width: 350px;
   }
 }
@@ -105,6 +116,9 @@
 }
 
 @media screen and (max-width: 679px) {
+  .App .lang-select {
+    justify-content: center;
+  }
  .ant-tabs-nav {
    margin: 0px auto 24px auto !important;
  }

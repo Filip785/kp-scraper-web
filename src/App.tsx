@@ -9,17 +9,13 @@ import { useTranslation, Trans } from 'react-i18next';
 const { Option } = Select;
 
 function App() {
-  const { i18n, } = useTranslation();
-
-  const handleLangChange = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
+  const { i18n } = useTranslation();
 
   return (
     <div className="App">
       <div className="lang-select">
       <h3><Trans i18nKey="Izaberite jezik"></Trans></h3>
-        <Select defaultValue={localStorage.getItem('i18nextLng') || 'rs'} style={{ width: 175 }} onChange={handleLangChange}>
+        <Select defaultValue={localStorage.getItem('i18nextLng') || 'rs'} style={{ width: 175 }} onChange={lang => i18n.changeLanguage(lang)}>
           <Option value="rs">
             <img src="/img/serbia.png" alt="Serbian flag" />
             <span className="lang-select-desc">
