@@ -62,7 +62,6 @@ i18n
       },
     },
     fallbackLng: localStorage.getItem('i18nextLng') || 'rs',
-    debug: true,
     lng: localStorage.getItem('i18nextLng') || 'rs',
     ns: ['translations'],
     defaultNS: 'translations',
