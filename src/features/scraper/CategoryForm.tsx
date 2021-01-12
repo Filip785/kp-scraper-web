@@ -41,7 +41,6 @@ export default function CategoryForm(props: Props) {
         onFinish={() => dispatch(attemptSubmit(form.getFieldValue('num-pages'), form.getFieldValue('min-price'), form.getFieldValue('max-price'), form.getFieldValue('search-term'), props.partType))}
         form={form}
       >
-        <h3 className="info-msg">{t('Nemoj broj stranica preko 20 da staviš')}</h3>
         <Form.Item
           label={t("Maksimalan broj strana koje želite da pokrijete")}
           name="num-pages"
@@ -50,6 +49,11 @@ export default function CategoryForm(props: Props) {
               required: true,
               message: 'Unesite broj strana',
             },
+            {
+              max: 20,
+              type: 'number',
+              message: 'Maksimalan broj strana je 20'
+            }
           ]}
         >
           <InputNumber />
@@ -154,7 +158,7 @@ export default function CategoryForm(props: Props) {
             return {
               children,
               props: {
-                'data-desc': t('Datum Kreiranja')
+                'data-desc': t('Datum kreiranja')
               }
             };
           }
